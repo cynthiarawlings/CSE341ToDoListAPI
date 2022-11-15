@@ -6,7 +6,7 @@ const mongodb = require('../connections/index');
 
 
 // Get User by ID
-const getUserUserDailyToDo = async (req, res) => {
+const getUserUserLists = async (req, res) => {
     try {
         if (!authZeroUserJson.sub) {
             res.status(400).send({ message: 'No 0auth id supplied.' });
@@ -19,7 +19,7 @@ const getUserUserDailyToDo = async (req, res) => {
             })
             .catch((err) => {
                 res.status(500).send({
-                    message: err.message || 'Some error occurred while retrieving your Daily To Do List.'
+                    message: err.message || 'Some error occurred while retrieving your To Do Lists.'
                 });
             });
     } catch (err) {
@@ -28,4 +28,4 @@ const getUserUserDailyToDo = async (req, res) => {
 };
 
 
-module.exports = { getUserUserDailyToDo };
+module.exports = { getUserUserLists };

@@ -7,7 +7,7 @@ const userController = require('../controllers/user.js');
 const loadUser = require("../middleware/loadUser");
 
 
-router.get('/', userController.getUserUserDailyToDo);
+router.get('/', userController.getUserUserLists);
 router.use([loadUser]);
 
 
