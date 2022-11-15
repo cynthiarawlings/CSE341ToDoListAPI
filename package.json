@@ -1,0 +1,34 @@
+{
+  "name": "cse341todolistapi",
+  "version": "1.0.0",
+  "description": "Created by Cynthia Rawlings and Eren Radichel",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyruleismyrule/CSE341ToDoListAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hyruleismyrule/CSE341ToDoListAPI/issues"
+  },
+  "homepage": "https://github.com/hyruleismyrule/CSE341ToDoListAPI#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "mongodb": "^4.11.0",
+    "nodemon": "^2.0.20",
+    "swagger-ui-express": "^4.6.0"
+  },
+  "devDependencies": {
+    "swagger-autogen": "^2.22.0"
+  }
+}
