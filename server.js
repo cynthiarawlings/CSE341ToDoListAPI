@@ -10,7 +10,7 @@ const swaggerUi = require('swagger-ui-express');
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
 // const swaggerDocumentInstructions = require('./swagger');
-// const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./documentation/swagger-example.json');
 
 app
     .use(cors())
@@ -22,7 +22,7 @@ app
         next();
     })
     // .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocumentInstructions))
-    // .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+    .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
     .use('/', require('./routes'));
 
 // Connect to Mongodb
