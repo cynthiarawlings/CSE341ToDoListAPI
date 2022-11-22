@@ -19,13 +19,16 @@ const getUserUserLists = async (req, res) => {
             })
             .catch((err) => {
                 res.status(500).send({
-                    message: err.message || 'Some error occurred while retrieving your To Do Lists.'
+                    message: err.message || 'Some error occurred while retrieving your information.'
+                    // message: err.message || 'Some error occurred while retrieving your To Do Lists.'
                 });
             });
     } catch (err) {
         res.status(500).json(err);
     }
 };
+
+// Add List Id to the Matching User
 
 
 module.exports = { getUserUserLists };

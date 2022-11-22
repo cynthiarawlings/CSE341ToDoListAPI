@@ -6,7 +6,7 @@ const router = express.Router();
 const authorizationRoutes = require("./authorization");
 
 
-// router.use('/api/daily', require('./daily'));
+router.use('/api/dailyToDo', require('./dailyToDo'));
 router.use("/authorization", authorizationRoutes);
 router.use("/user", require('./user'));
 

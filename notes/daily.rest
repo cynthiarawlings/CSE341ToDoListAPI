@@ -1,0 +1,11 @@
+###
+GET http://localhost:3000/api/dailyToDo/637d417e4bd6dc2996bb452e
+###
+
+POST http://localhost:3000/api/dailyToDo HTTP/1.1 
+content-type: application/json
+
+{  
+    "demo": "Demo1"
+}
+###
