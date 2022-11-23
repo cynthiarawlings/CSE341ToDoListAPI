@@ -38,11 +38,11 @@ const createDailyToDList = async (req, res) => {
             demo: req.body.demo
         };
         const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').insertOne(list);
-        // console.log(response.insertedId);
         if (response.acknowledged) {
-            res.status(201).json(response);
             // ***********
-            // Now the list Id needs to be added to the User database
+            res.listId = response.insertedId;
+            res.status(201).json(response);
+            // console.log(res.listId);
         } else {
             res.status(500).json(response.error || 'Some error occurred while creating the list.');
         }

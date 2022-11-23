@@ -7,7 +7,7 @@ const userController = require('../controllers/user.js');
 const loadUser = require("../middleware/loadUser");
 
 
-router.get('/', userController.getUserUserLists);
+router.get('/', userController.getUserLists);
 router.use([loadUser]);
 
 

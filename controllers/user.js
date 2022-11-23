@@ -6,7 +6,7 @@ const mongodb = require('../connections/index');
 
 
 // Get User by ID
-const getUserUserLists = async (req, res) => {
+const getUserLists = async (req, res) => {
     try {
         if (!authZeroUserJson.sub) {
             res.status(400).send({ message: 'No 0auth id supplied.' });
@@ -28,7 +28,33 @@ const getUserUserLists = async (req, res) => {
     }
 };
 
-// Add List Id to the Matching User
+// Add List Id to the Matching User (PUT)
+const addDailyToDoListToUser = async (req, res) => {
+    try {
+        const userId = new ObjectId(req.params.id);
+        if (!userId) {
+            res.status(400).send({ message: 'Invalid user ID supplied.' });
+            return;
+        }
+        const updatedUser = {
+            identifier: req.body.sub,
+            email: req.body.email,
+            givenName: req.body.given_name,
+            familyName: req.body.family_name,
+            locale: req.body.locale,
+            picture: req.body.picture,
+            dailyToDoList: req.body.dailyToDoListId
+        };
+        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').replaceOne({ _id: userId }, updatedUser);
+        if (response.modifiedCount > 0) {
+            res.status(204).send();
+        } else {
+            res.status(500).json(response.error || 'Some error occurred while updating the user with the new list.');
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
 
 
-module.exports = { getUserUserLists };
+module.exports = { getUserLists, addDailyToDoListToUser };
