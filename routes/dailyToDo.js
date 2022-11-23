@@ -11,7 +11,7 @@ const dailyToDoController = require('../controllers/dailyToDo.js');
 router.get('/:id', dailyToDoController.getDailyToDListById);
 
 // No validation yet
-router.post('/', dailyToDoController.createDailyToDList);
+// router.post('/', dailyToDoController.createDailyToDList);
 
 // *****
 // Note, there is no get all because each user will supply an id to get thier list.

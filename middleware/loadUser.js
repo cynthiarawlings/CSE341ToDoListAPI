@@ -4,6 +4,7 @@
 const mongodb = require('../connections/index');
 const authorizationHost = process.env.AUTHORIZATION_HOST;
 const authUserURL = authorizationHost + "/userinfo";
+// const dailyToDoController = require('../controllers/dailyToDo.js');
 
 
 const loadUser = async (req, res, next) => {
@@ -17,7 +18,7 @@ const loadUser = async (req, res, next) => {
 
 const fetchAuthZeroUser = async (authorizationValue) => {
     const response = await fetch(authUserURL, {
-        headers: { Authorization: authorizationValue}
+        headers: { Authorization: authorizationValue }
     });
     return response.json();
 };
@@ -30,13 +31,16 @@ const findOrCreateUser = async (authZeroUserJson) => {
         return exitingUser[0];
     }
 
+
+    const dailyToDoId = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').insertOne({
+        demo: "demo1",
+    });
+
+
     const newUser = await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').insertOne({
         identifier: authZeroUserJson.sub,
-        email: authZeroUserJson.email,
-        givenName: authZeroUserJson.given_name,
-        familyName: authZeroUserJson.family_name,
-        locale: authZeroUserJson.locale,
-        picture: authZeroUserJson.picture
+        dailyToDoId: dailyToDoId.insertedId
+        // This creates an empty document for dailyToDo and adds the id to the users database
     });
 
     return newUser;

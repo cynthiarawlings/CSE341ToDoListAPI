@@ -31,26 +31,26 @@ const getDailyToDListById = async (req, res) => {
     }
 };
 
-// POST (Called by the application when the user is created, should make an empty list)
-const createDailyToDList = async (req, res) => {
-    try {
-        const list = {
-            demo: req.body.demo
-        };
-        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').insertOne(list);
-        if (response.acknowledged) {
-            // ***********
-            res.listId = response.insertedId;
-            res.status(201).json(response);
-            // console.log(res.listId);
-        } else {
-            res.status(500).json(response.error || 'Some error occurred while creating the list.');
-        }
-    } catch (err) {
-        res.status(500).json(err);
-    }
-};
+// // POST (Called by the application when the user is created, should make an empty list)
+// const createDailyToDList = async (req, res) => {
+//     try {
+//         const list = {
+//             demo: req.body.demo
+//         };
+//         const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').insertOne(list);
+//         if (response.acknowledged) {
+//             // ***********
+//             res.dailyToDoId = response.insertedId;
+//             res.status(201).json(response);
+//             // console.log(res.listId);
+//         } else {
+//             res.status(500).json(response.error || 'Some error occurred while creating the list.');
+//         }
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// };
 
 
 // module.exports = { getAllCharacters, getCharacterById, createCharacter, updateCharacter, deleteCharacter };
-module.exports = { getDailyToDListById, createDailyToDList };
+module.exports = { getDailyToDListById };
