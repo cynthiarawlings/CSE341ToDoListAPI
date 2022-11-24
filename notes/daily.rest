@@ -14,7 +14,11 @@ PUT http://localhost:3000/api/dailyToDo/637feca653ab7ba20b936330 HTTP/1.1
 content-type: application/json
 
 {
-    "task1": 1, 
-    "task2": 2, 
-    "task3": 3
+    "task1": "a", 
+    "task2": "b", 
+    "task3": "c", 
+    "task4": "d", 
+    "task5": "e", 
+    "task5": "f", 
+    "task7": "g"
 }

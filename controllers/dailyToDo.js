@@ -48,17 +48,27 @@ const addTaskDailyToDo = async (req, res) => {
         // needing or removing all previous tasks
         const options = { upsert: false };
         // Add a cap to not overwhelm the db
-        // while ()
-        const tasks = {
-            $set: {
-                task1: req.body.task1,
-                task2: req.body.task2,
-                task3: req.body.task3
+        // The current setup will overide the database so I will need to retrieve
+        // The old information and add it before the new information.
+        let i = 1;
+        let body = req.body;
+        let tasks = {};
+        do {
+            let key = 'task' + i
+            let task = body[key];
+            if (!task) {
+                break;
             }
+            tasks[key] = task;
+            i++;
+        }
+        while (true);
+        const readyTasks = {
+            $Set: tasks
         };
         // const filter = { _id: listId };
         // const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').replaceOne({ _id: listId }, tasks);
-        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').updateOne({ _id: listId }, tasks, options);
+        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').updateOne({ _id: listId }, readyTasks, options);
         // console.log(response);
         if (response.modifiedCount > 0) {
             res.status(204).send();
