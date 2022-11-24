@@ -6,7 +6,9 @@ const ObjectId = require('mongodb').ObjectId;
 
 // *******
 // Note there is no get all because the user will supply thier id for thier personal list
-// I still need to do post, put, and delete
+// I still need to do put
+// Post happens in the user file when the user is created
+// Delete will happen when the user is deleted so it will hapen in the user file
 
 // GET by ID (Called by the user)
 const getDailyToDListById = async (req, res) => {
@@ -31,26 +33,44 @@ const getDailyToDListById = async (req, res) => {
     }
 };
 
-// // POST (Called by the application when the user is created, should make an empty list)
-// const createDailyToDList = async (req, res) => {
-//     try {
-//         const list = {
-//             demo: req.body.demo
-//         };
-//         const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').insertOne(list);
-//         if (response.acknowledged) {
-//             // ***********
-//             res.dailyToDoId = response.insertedId;
-//             res.status(201).json(response);
-//             // console.log(res.listId);
-//         } else {
-//             res.status(500).json(response.error || 'Some error occurred while creating the list.');
-//         }
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// };
+// PUT Add Tasks (Called by the user)
+const addTaskDailyToDo = async (req, res) => {
+    try {
+        const listId = new ObjectId(req.params.id);
+        if (!listId) {
+            res.status(400).send({ message: 'Invalid list ID supplied.' });
+            return;
+        }
+        // const auth0Identifier = req.params.identifier;
+        // I need to figure out how to check for the amout of tasks
+        // and make a loop to go through all of them
+        // This is to see if I can just append to a document without
+        // needing or removing all previous tasks
+        const options = { upsert: false };
+        // Add a cap to not overwhelm the db
+        // while ()
+        const tasks = {
+            $set: {
+                task1: req.body.task1,
+                task2: req.body.task2,
+                task3: req.body.task3
+            }
+        };
+        // const filter = { _id: listId };
+        // const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').replaceOne({ _id: listId }, tasks);
+        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').updateOne({ _id: listId }, tasks, options);
+        // console.log(response);
+        if (response.modifiedCount > 0) {
+            res.status(204).send();
+        } else {
+            // console.log(response);
+            res.status(500).json(response.error || 'Some error occurred while updating the Daily To Do List.');
+        }
+    } catch (err) {
+        // console.log(response);
+        res.status(500).json(err);
+    }
+}
 
 
-// module.exports = { getAllCharacters, getCharacterById, createCharacter, updateCharacter, deleteCharacter };
-module.exports = { getDailyToDListById };
+module.exports = { getDailyToDListById, addTaskDailyToDo };
