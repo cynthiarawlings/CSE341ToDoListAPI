@@ -50,11 +50,15 @@ const addTaskDailyToDo = async (req, res) => {
         // Add a cap to not overwhelm the db
         // The current setup will overide the database so I will need to retrieve
         // The old information and add it before the new information.
+        
+
+
+
         let i = 1;
         let body = req.body;
         let tasks = {};
         do {
-            let key = 'task' + i
+            let key = 'task' + i;
             let task = body[key];
             if (!task) {
                 break;
