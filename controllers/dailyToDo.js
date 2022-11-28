@@ -41,22 +41,7 @@ const addTaskDailyToDo = async (req, res) => {
             res.status(400).send({ message: 'Invalid list ID supplied.' });
             return;
         }
-        // const auth0Identifier = req.params.identifier;
-        // I need to figure out how to check for the amout of tasks
-        // and make a loop to go through all of them
-        // This is to see if I can just append to a document without
-        // needing or removing all previous tasks
-        // const options = { upsert: false };
-        // Add a cap to not overwhelm the db
-        // The current setup will overide the database so I will need to retrieve
-        // The old information and add it before the new information.
-
-
         const oldList = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').find({ _id: listId }).toArray();
-        // console.log(oldList);
-
-        // console.log(oldList[0].task1);
-
         let currentTaskNumber = 0;
         let j = 0;
         do {
@@ -68,19 +53,14 @@ const addTaskDailyToDo = async (req, res) => {
             j++;
         }
         while (true);
-
-        // console.log(currentTaskNumber);
         let newKeyNum = currentTaskNumber;
-        // let i = 1;
         let i = 0;
         let body = req.body;
-        // let tasks = {};
         let tasks = oldList[0];
         do {
             let key = 'task' + i;
             let newKey = 'task' + newKeyNum;
             let task = body[key];
-            // let checkTask
             if (!task) {
                 break;
             }
@@ -89,22 +69,13 @@ const addTaskDailyToDo = async (req, res) => {
             newKeyNum++;
         }
         while (true);
-        // console.log(tasks);
-        // const readyTasks = {
-        //     $Set: tasks
-        // };
-        // const filter = { _id: listId };
         const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').replaceOne({ _id: listId }, tasks);
-        // const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').updateOne({ _id: listId }, readyTasks, options);
-        // console.log(response);
         if (response.modifiedCount > 0) {
             res.status(204).send();
         } else {
-            // console.log(response);
             res.status(500).json(response.error || 'Some error occurred while updating the Daily To Do List.');
         }
     } catch (err) {
-        // console.log(response);
         res.status(500).json(err);
     }
 }
