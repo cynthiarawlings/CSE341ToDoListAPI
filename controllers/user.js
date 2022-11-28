@@ -60,13 +60,33 @@ const deleteUser = async (req, res) => {
             res.status(400).send({ message: 'Invalid user ID supplied.' });
             return;
         }
-        // Deletes the Daily To Do from the dailyToDo database
-
-
         // Deletes the User from the users database
         const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').deleteOne({ _id: userId }, true);
         if (response.deletedCount > 0) {
             res.status(204).send();
+            // Deletes the Daily Complete from the dailyToDo database
+            try {
+                const listId = new ObjectId(req.params.id);
+                const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyComplete').deleteOne({ _id: listId }, true);
+                if (response.deletedCount > 0) {
+                    res.status(204).send();
+                  } else {
+                    res.status(500).json(response.error || 'And error occurred. Try again later!');
+                  }
+                } catch (err) {
+                  res.status(500).json(err);
+                }
+            try {
+                const listId = new ObjectId(req.params.id);
+                const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').deleteOne({ _id: listId }, true);
+                if (response.deletedCount > 0) {
+                    res.status(204).send();
+                  } else {
+                    res.status(500).json(response.error || 'And error occurred. Try again later!');
+                  }
+                } catch (err) {
+                  res.status(500).json(err);
+                }
         } else {
             res.status(500).json(response.error || 'Some error occurred while deleting the user.');
         }
