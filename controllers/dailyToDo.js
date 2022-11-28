@@ -50,29 +50,50 @@ const addTaskDailyToDo = async (req, res) => {
         // Add a cap to not overwhelm the db
         // The current setup will overide the database so I will need to retrieve
         // The old information and add it before the new information.
-        
 
 
+        const oldList = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').find({ _id: listId }).toArray();
+        // console.log(oldList);
 
+        // console.log(oldList[0].task1);
+
+        let currentTaskNumber = 0;
+        let j = 1
+        do {
+            let refTask = 'task' + j;
+            if (!oldList[0][refTask]) {
+                currentTaskNumber = j;
+                break;
+            }
+            j++;
+        }
+        while (true);
+
+        // console.log(currentTaskNumber);
+        let newKeyNum = currentTaskNumber;
         let i = 1;
         let body = req.body;
-        let tasks = {};
+        // let tasks = {};
+        let tasks = oldList[0];
         do {
             let key = 'task' + i;
+            let newKey = 'task' + newKeyNum;
             let task = body[key];
             if (!task) {
                 break;
             }
-            tasks[key] = task;
+            tasks[newKey] = task;
             i++;
+            newKeyNum++;
         }
         while (true);
-        const readyTasks = {
-            $Set: tasks
-        };
+        console.log(tasks);
+        // const readyTasks = {
+        //     $Set: tasks
+        // };
         // const filter = { _id: listId };
-        // const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').replaceOne({ _id: listId }, tasks);
-        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').updateOne({ _id: listId }, readyTasks, options);
+        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').replaceOne({ _id: listId }, tasks);
+        // const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').updateOne({ _id: listId }, readyTasks, options);
         // console.log(response);
         if (response.modifiedCount > 0) {
             res.status(204).send();
