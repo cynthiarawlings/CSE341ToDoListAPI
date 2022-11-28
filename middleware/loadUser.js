@@ -4,7 +4,6 @@
 const mongodb = require('../connections/index');
 const authorizationHost = process.env.AUTHORIZATION_HOST;
 const authUserURL = authorizationHost + "/userinfo";
-// const dailyToDoController = require('../controllers/dailyToDo.js');
 
 
 const loadUser = async (req, res, next) => {

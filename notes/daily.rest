@@ -2,24 +2,15 @@
 GET http://localhost:3000/api/dailyToDo/637d417e4bd6dc2996bb452e
 ###
 
-POST http://localhost:3000/api/dailyToDo HTTP/1.1 
-content-type: application/json
-
-{  
-    "demo": "Demo1"
-}
 ###
-
 PUT http://localhost:3000/api/dailyToDo/637feca653ab7ba20b936330 HTTP/1.1
 content-type: application/json
 
 {
-    "task0": "z",
-    "task1": "a", 
-    "task2": "b", 
-    "task3": "c", 
-    "task4": "d", 
-    "task5": "e", 
-    "task6": "f", 
-    "task7": "g"
+    "task0": "a",
+    "task1": "b", 
+    "task2": "c", 
+    "task3": "d"
 }
+
+###
