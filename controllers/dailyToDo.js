@@ -46,7 +46,7 @@ const addTaskDailyToDo = async (req, res) => {
         // and make a loop to go through all of them
         // This is to see if I can just append to a document without
         // needing or removing all previous tasks
-        const options = { upsert: false };
+        // const options = { upsert: false };
         // Add a cap to not overwhelm the db
         // The current setup will overide the database so I will need to retrieve
         // The old information and add it before the new information.
@@ -58,7 +58,7 @@ const addTaskDailyToDo = async (req, res) => {
         // console.log(oldList[0].task1);
 
         let currentTaskNumber = 0;
-        let j = 1
+        let j = 0;
         do {
             let refTask = 'task' + j;
             if (!oldList[0][refTask]) {
@@ -71,7 +71,8 @@ const addTaskDailyToDo = async (req, res) => {
 
         // console.log(currentTaskNumber);
         let newKeyNum = currentTaskNumber;
-        let i = 1;
+        // let i = 1;
+        let i = 0;
         let body = req.body;
         // let tasks = {};
         let tasks = oldList[0];
@@ -79,6 +80,7 @@ const addTaskDailyToDo = async (req, res) => {
             let key = 'task' + i;
             let newKey = 'task' + newKeyNum;
             let task = body[key];
+            // let checkTask
             if (!task) {
                 break;
             }
@@ -87,7 +89,7 @@ const addTaskDailyToDo = async (req, res) => {
             newKeyNum++;
         }
         while (true);
-        console.log(tasks);
+        // console.log(tasks);
         // const readyTasks = {
         //     $Set: tasks
         // };
