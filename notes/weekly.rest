@@ -1,0 +1,59 @@
+###
+GET http://localhost:3000/api/weeklyToDo/637d417e4bd6dc2996bb452e
+###
+
+###
+# Add Tasks
+PUT http://localhost:3000/api/weeklyToDo/637feca653ab7ba20b936330 HTTP/1.1
+content-type: application/json
+
+{
+    "task0": {
+        task: "a",
+        weekdays: "a",
+        time: "a",
+        timeEnd: "a",
+        location: "a",
+        people: "a",
+        notes: "a"
+    },
+    "task1": {
+        task: "b",
+        weekdays: "b",
+        time: "b",
+        timeEnd: "b",
+        location: "b",
+        people: "b",
+        notes: "b"
+    },
+    "task2": {
+        task: "c",
+        weekdays: "c",
+        time: "c",
+        timeEnd: "c",
+        location: "c",
+        people: "c",
+        notes: "c"
+    }, 
+    "task3": {
+        task: "d",
+        weekdays: "d",
+        time: "d",
+        timeEnd: "d",
+        location: "d",
+        people: "d",
+        notes: "d"
+    }
+}
+
+###
+# Remove Tasks
+PUT http://localhost:3000/api/weeklyToDo/637feca653ab7ba20b936330 HTTP/1.1
+content-type: application/json
+
+{
+    "remove0": "task0",
+    "remove1": "task1",
+    "remove2": "task2"
+}
+###

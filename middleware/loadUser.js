@@ -31,15 +31,19 @@ const findOrCreateUser = async (authZeroUserJson) => {
     }
 
 
-    // This is the default list. For authentication purposes the auth0 identifier is stored here
     const dailyToDoId = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').insertOne({
+        identifier: authZeroUserJson.sub
+    });
+
+    const weeklyToDoId = await mongodb.getDb().db('CSE341ToDoListAPI').collection('weeklyToDo').insertOne({
         identifier: authZeroUserJson.sub
     });
 
 
     const newUser = await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').insertOne({
         identifier: authZeroUserJson.sub,
-        dailyToDoId: dailyToDoId.insertedId
+        dailyToDoId: dailyToDoId.insertedId,
+        weeklyToDoId: weeklyToDoId.insertedId
         // This creates an empty document for dailyToDo and adds the id to the users database
     });
 
