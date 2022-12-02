@@ -7,6 +7,7 @@ const authorizationRoutes = require("./authorization");
 
 
 router.use('/api/dailyToDo', require('./dailyToDo'));
+router.use('/api/weeklyToDo', require('./weeklyToDo'));
 router.use("/authorization", authorizationRoutes);
 router.use("/user", require('./user'));
 
