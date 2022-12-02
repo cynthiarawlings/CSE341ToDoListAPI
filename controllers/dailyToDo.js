@@ -4,11 +4,6 @@
 const mongodb = require('../connections/index');
 const ObjectId = require('mongodb').ObjectId;
 
-// *******
-// Note there is no get all because the user will supply thier id for thier personal list
-// Post happens in the user file when the user is created
-// Delete will happen when the user is deleted so it will hapen in the user file
-
 
 // GET by ID (Called by the user)
 const getDailyToDListById = async (req, res) => {
