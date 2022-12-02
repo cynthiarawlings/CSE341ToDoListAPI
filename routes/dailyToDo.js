@@ -11,7 +11,7 @@ const dailyToDoController = require('../controllers/dailyToDo.js');
 router.get('/:id', dailyToDoController.getDailyToDListById);
 
 // No validation yet
-router.put('/:id', dailyToDoController.addTaskDailyToDo);
+router.put('/:id', dailyToDoController.updateTasksDailyToDo);
 
 
 // router.post('/', dailyToDoController.createDailyToDList);

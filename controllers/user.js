@@ -7,7 +7,6 @@ const mongodb = require('../connections/index');
 
 const getUserLists = async (req, res) => {
     try {
-        //   const characterId = new ObjectId(req.params.id);
         if (!authZeroUserJson.sub) {
             res.status(400).send({ message: 'No 0auth id supplied.' });
             return;
@@ -27,30 +26,6 @@ const getUserLists = async (req, res) => {
     }
 };
 
-
-// Get User by ID
-// const getUserListsById = async (req, res) => {
-//     try {
-//         const userId = new ObjectId(req.params.id);
-//         if (!userId) {
-//             res.status(400).send({ message: 'Invalid user ID supplied.' });
-//             return;
-//         }
-//         await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').find({ _id: userId })
-//             .then((result) => {
-//                 res.setHeader('Content-Type', 'application/json');
-//                 res.status(200).json(result);
-//             })
-//             .catch((err) => {
-//                 res.status(500).send({
-//                     message: err.message || 'Some error occurred while retrieving your information.'
-//                     // message: err.message || 'Some error occurred while retrieving your To Do Lists.'
-//                 });
-//             });
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// };
 
 // DELETE
 const deleteUser = async (req, res) => {
