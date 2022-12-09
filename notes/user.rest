@@ -1,3 +1,6 @@
 ###
-GET http://localhost:3000/user/638a5cbf30b5edf765ff7150
+GET http://localhost:3000/user/63927a78e992935d54af4310
+###
+
+DELETE  http://localhost:3000/user/63927a78e992935d54af4310 HTTP/1.1
 ###

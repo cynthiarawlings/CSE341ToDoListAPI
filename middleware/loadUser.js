@@ -39,12 +39,21 @@ const findOrCreateUser = async (authZeroUserJson) => {
         identifier: authZeroUserJson.sub
     });
 
+    const dailyCompleteId = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyComplete').insertOne({
+        identifier: authZeroUserJson.sub
+    });
+
+    const weeklyCompleteId = await mongodb.getDb().db('CSE341ToDoListAPI').collection('weeklyComplete').insertOne({
+        identifier: authZeroUserJson.sub
+    });
+
 
     const newUser = await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').insertOne({
         identifier: authZeroUserJson.sub,
         dailyToDoId: dailyToDoId.insertedId,
-        weeklyToDoId: weeklyToDoId.insertedId
-        // This creates an empty document for dailyToDo and adds the id to the users database
+        weeklyToDoId: weeklyToDoId.insertedId,
+        dailyCompleteId: dailyCompleteId.insertedId,
+        weeklyCompleteId: weeklyCompleteId.insertedId
     });
 
     return newUser;
