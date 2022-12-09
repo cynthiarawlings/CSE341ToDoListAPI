@@ -32,10 +32,6 @@ const getUserLists = async (req, res) => {
     }
 };
 
-// ************
-// This is not active yet
-
-// DELETE
 const deleteUser = async (req, res) => {
     try {
         const userId = new ObjectId(req.params.id);
@@ -45,62 +41,62 @@ const deleteUser = async (req, res) => {
         }
         // First gets the user's lists
         const userLists = await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').find({ _id: userId }).toArray();
-        const dailyToDoId = userLists.dailyToDoId;
-        const weeklyToDoId = userLists.weeklyToDoId;
-        const dailyCompleteId = userLists.dailyCompleteId;
-        const weeklyCompleteId = userLists.weeklyCompleteId;
 
+        const dailyToDoId = userLists[0].dailyToDoId;
+        const weeklyToDoId = userLists[0].weeklyToDoId;
+        const dailyCompleteId = userLists[0].dailyCompleteId;
+        const weeklyCompleteId = userLists[0].weeklyCompleteId;
 
-        // Deletes the User from the users database
-        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').deleteOne({ _id: userId }, true);
-        if (response.deletedCount > 0) {
-            // res.status(204).send();
-            // dailyToDo
-            try {
-                const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').deleteOne({ _id: dailyToDoId }, true);
-                if (response.deletedCount > 0) {
-                    // res.status(204).send();
-                    // dailyComplete 
-                    try {
-                        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyComplete').deleteOne({ _id: dailyCompleteId }, true);
-                        if (response.deletedCount > 0) {
-                            // res.status(204).send();
-                            // weeklyToDo 
-                            try {
-                                const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('weeklyToDo').deleteOne({ _id: weeklyToDoId }, true);
-                                if (response.deletedCount > 0) {
-                                    // res.status(204).send();
-                                    // weeklyComplete
-                                    try {
-                                        const response = await mongodb.getDb().db('CSE341ToDoListAPI').collection('weeklyComplete').deleteOne({ _id: weeklyCompleteId }, true);
-                                        if (response.deletedCount > 0) {
-                                            res.status(204).send();
-                                        } else {
-                                            res.status(500).json(response.error || 'And error occurred. Try again later!');
-                                        }
-                                    } catch (err) {
-                                        res.status(500).json(err);
-                                    }
-                                } else {
-                                    res.status(500).json(response.error || 'And error occurred. Try again later!');
-                                }
-                            } catch (err) {
-                                res.status(500).json(err);
-                            }
-                        } else {
-                            res.status(500).json(response.error || 'And error occurred. Try again later!');
-                        }
-                    } catch (err) {
-                        res.status(500).json(err);
-                    }
-                } else {
-                    res.status(500).json(response.error || 'And error occurred. Try again later!');
-                }
-            } catch (err) {
-                res.status(500).json(err);
+        // dailyToDo
+        try {
+            const response1 = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyToDo').deleteOne({ _id: dailyToDoId }, true);
+            if (response1.deletedCount > 0) {
+            } else {
+                res.status(500).json(response1.error || 'And error occurred while deleting the dailyToDo List.');
             }
-        } else {
-            res.status(500).json(response.error || 'Some error occurred while deleting the user.');
+        } catch (err) {
+            res.status(500).json(response1.error || 'And error occurred while deleting the dailyToDo List.');
+        }
+        // dailyComplete 
+        try {
+            const response2 = await mongodb.getDb().db('CSE341ToDoListAPI').collection('dailyComplete').deleteOne({ _id: dailyCompleteId }, true);
+            if (response2.deletedCount > 0) {
+            } else {
+                res.status(500).json(response2.error || 'And error occurred while deleting the dailyComplete List.');
+            }
+        } catch (err) {
+            res.status(500).json(response2.error || 'And error occurred while deleting the dailyComplete List.');
+        }
+        // weeklyToDo 
+        try {
+            const response3 = await mongodb.getDb().db('CSE341ToDoListAPI').collection('weeklyToDo').deleteOne({ _id: weeklyToDoId }, true);
+            if (response3.deletedCount > 0) {
+            } else {
+                res.status(500).json(response3.error || 'And error occurred while deleting the dailyComplete List.');
+            }
+        } catch (err) {
+            res.status(500).json(response3.error || 'And error occurred while deleting the dailyComplete List.');
+        }
+        // weeklyComplete
+        try {
+            const response4 = await mongodb.getDb().db('CSE341ToDoListAPI').collection('weeklyComplete').deleteOne({ _id: weeklyCompleteId }, true);
+            if (response4.deletedCount > 0) {
+            } else {
+                res.status(500).json(response4.error || 'And error occurred while deleting the weeklyComplete List.');
+            }
+        } catch (err) {
+            res.status(500).json(response4.error || 'And error occurred while deleting the weeklyComplete List.');
+        }
+        // user
+        try {
+            const response5 = await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').deleteOne({ _id: userId }, true);
+            if (response5.deletedCount > 0) {
+                res.status(204).send();
+            } else {
+                res.status(500).json(response5.error || 'And error occurred while deleting the user.');
+            }
+        } catch (err) {
+            res.status(500).json(response5.error || 'And error occurred while deleting the user.');
         }
     } catch (err) {
         res.status(500).json(err || 'Some error occurred while deleting the user.');
