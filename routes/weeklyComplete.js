@@ -3,7 +3,7 @@
 
 const express = require('express');
 const router = express.Router();
-const weeklyCompleteController = require('../controllers/weeklyComplete');
+const weeklyCompleteController = require('../controllers/dailyComplete');
 
 
 //router.get('/:id', weeklyCompleteController.getWeeklyCompleteById);

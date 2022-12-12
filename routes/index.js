@@ -9,7 +9,7 @@ const router = express.Router();
 router.use('/api/dailyToDo', require('./dailyToDo'));
 router.use('/api/dailyComplete', require('./dailyComplete'));
 router.use('/api/weeklyToDo', require('./weeklyToDo'));
-router.use('/api/weeklyComplete', require('./weeklyComplete'));
+//router.use('/api/weeklyComplete', require('./weeklyComplete'));
 //router.use("/authorization", authorizationRoutes);
 router.use("/user", require('./user'));
 

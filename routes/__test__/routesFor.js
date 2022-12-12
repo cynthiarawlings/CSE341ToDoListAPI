@@ -11,7 +11,7 @@ const routesFor = (router) => {
         results[route.path] = results[route.path].concat(
             Object.keys(route.methods));
     });
-
+    console.log(results);
     return results;
 };
 
