@@ -42,10 +42,12 @@ mongodb.initDb((err, mongodb) => {
 const config = {
   authRequired: false,
   auth0Logout: true,
-  secret: process.env.SECRET,
+  // secret: process.env.SECRET,
+  secret: process.env.CLIENT_SECRET,
   baseURL: process.env.BASE_URL,
   clientID: process.env.CLIENT_ID,
-  issuerBaseURL: process.env.ISSUER_BASE_URL,
+  // issuerBaseURL: process.env.ISSUER_BASE_URL,
+  issuerBaseURL: process.env.AUTHORIZATION_HOST
 };
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
