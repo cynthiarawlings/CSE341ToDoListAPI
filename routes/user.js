@@ -11,12 +11,12 @@ const { auth, requiresAuth } = require('express-openid-connect');
 //     res.send(JSON.stringify(req.oidc.user));
 //   });
 
-router.get('/:id', requiresAuth(), (req, res) => {
-    // res.send(userController.getUserLists);
-    userController.getUserLists(req, res);
-});
+// router.get('/:id', requiresAuth(), (req, res) => {
+//     // res.send(userController.getUserLists);
+//     userController.getUserLists(req, res);
+// });
   
-// router.get('/:id', userController.getUserLists);
+router.get('/:id', userController.getUserLists);
 
 router.delete('/:id', userController.deleteUser);
 router.use([loadUser]);
