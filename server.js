@@ -9,7 +9,7 @@ const mongodb = require('./connections/index');
 const swaggerUi = require('swagger-ui-express');
 const cookieParser = require("cookie-parser");
 // const swaggerDocumentInstructions = require('./swagger');
-const swaggerDocument = require('./documentation/swagger-example.json');
+const swaggerDocument = require('./documentation/swagger.json');
 
 app
   .use(bodyParser.json())
