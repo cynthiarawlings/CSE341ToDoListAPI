@@ -1,5 +1,5 @@
 // ***********
-// controllers/dailyToDo.js
+// controllers/dailyComplete.js
 
 const mongodb = require('../connections/index');
 const ObjectId = require('mongodb').ObjectId;
