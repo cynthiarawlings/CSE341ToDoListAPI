@@ -4,10 +4,25 @@
 
 const mongodb = require('../connections/index');
 const ObjectId = require('mongodb').ObjectId;
+const authorizationHost = process.env.AUTHORIZATION_HOST;
+const authUserURL = authorizationHost + "/userinfo";
 
 
 const getUserLists = async (req, res) => {
-    console.log("get list function");
+    try {
+        const jrrtoken = req.cookies.access_token;
+        if (!jrrtoken) {
+            throw ("My computer in the pool.");
+        }
+        const tokenResponse = await fetch(authUserURL, {
+            headers: { Authorization: "bearer " + jrrtoken }
+        });
+    } catch (err) {
+        res.status(401).send({
+            message: 'You are not logged in.'
+        });
+        return;
+    }
     try {
         const userId = new ObjectId(req.params.id);
         if (!userId) {
@@ -16,18 +31,15 @@ const getUserLists = async (req, res) => {
         }
         await mongodb.getDb().db('CSE341ToDoListAPI').collection('users').find({ _id: userId }).toArray()
             .then((result) => {
-                console.log("sending data");
                 res.setHeader('Content-Type', 'application/json');
                 res.status(200).json(result);
             })
             .catch((err) => {
-                console.log("Error")
                 res.status(500).send({
                     message: err.message || 'Some error occurred while retrieving the user lists.'
                 });
             });
     } catch (err) {
-        console.log("Error #2")
         res.status(500).json(err);
     }
 };

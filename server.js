@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const mongodb = require('./connections/index');
 const swaggerUi = require('swagger-ui-express');
 //const cors = require('cors');
-//const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 // const swaggerDocumentInstructions = require('./swagger');
 const swaggerDocument = require('./documentation/swagger-example.json');
 // const { auth, requiresAuth } = require('express-openid-connect');
@@ -17,7 +17,7 @@ app
     //.use(cors())
     .use(bodyParser.json())
     //.use(express.urlencoded({ extended: true }))
-    //.use(cookieParser())
+    .use(cookieParser())
     .use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
         next();
