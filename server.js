@@ -11,7 +11,7 @@ const swaggerUi = require('swagger-ui-express');
 //const cookieParser = require("cookie-parser");
 // const swaggerDocumentInstructions = require('./swagger');
 const swaggerDocument = require('./documentation/swagger-example.json');
-const { auth, requiresAuth } = require('express-openid-connect');
+// const { auth, requiresAuth } = require('express-openid-connect');
 
 app
     //.use(cors())
@@ -39,24 +39,24 @@ mongodb.initDb((err, mongodb) => {
 });
 
 //Auth Autentification
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  // secret: process.env.SECRET,
-  secret: process.env.CLIENT_SECRET,
-  baseURL: process.env.BASE_URL,
-  clientID: process.env.CLIENT_ID,
-  // issuerBaseURL: process.env.ISSUER_BASE_URL,
-  issuerBaseURL: process.env.AUTHORIZATION_HOST
-};
+// const config = {
+//   authRequired: false,
+//   auth0Logout: true,
+//   // secret: process.env.SECRET,
+//   secret: process.env.CLIENT_SECRET,
+//   baseURL: process.env.BASE_URL,
+//   clientID: process.env.CLIENT_ID,
+//   // issuerBaseURL: process.env.ISSUER_BASE_URL,
+//   issuerBaseURL: process.env.AUTHORIZATION_HOST
+// };
 // auth router attaches /login, /logout, and /callback routes to the baseURL
-app.use(auth(config));
+// app.use(auth(config));
 
 // req.isAuthenticated is provided from the auth router
-app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
+// app.get('/', (req, res) => {
+//   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+// });
 
-app.get('/profile', requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user));
-});
+// app.get('/user', requiresAuth(), (req, res) => {
+//   res.send(JSON.stringify(req.oidc.user));
+// });
